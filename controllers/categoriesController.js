@@ -118,5 +118,7 @@ let updateParents = (parentData, result) => {
 
 
 exports.remove = async (req, res) => {
-
+    let data = req.query;
+    await Categories.destroy({where: {id: data.id}});
+    this.get(req, res);
 };

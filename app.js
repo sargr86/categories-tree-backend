@@ -35,6 +35,24 @@ app.use(passport.initialize({}));
 app.use('/auth', require('./routes/auth'));
 app.use('/categories', require('./routes/categories'));
 
+const path = require('path');
+
+
+let dist = path.join(__dirname, '/dist/');
+
+if (process.env.NODE_ENV === 'production') {
+    console.log('dist works')
+    dist = path.join(__dirname, '/dist/')
+}
+app.use(express.static(dist));
+
+// Separating Angular routes
+app.get('*', (req, res, next) => {
+    if (!req.url.includes('phpmyadmin') && !req.url.includes('uploads')) {
+        res.sendFile(dist + 'index.html');
+    }
+});
+
 
 
 
