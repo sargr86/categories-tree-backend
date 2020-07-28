@@ -33,6 +33,7 @@ app.use(passport.initialize({}));
 
 // Routes
 app.use('/auth', require('./routes/auth'));
+app.use('/categories', require('./routes/categories'));
 
 
 
