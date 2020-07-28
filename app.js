@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-const port = 3000;
+const port = process.env.PORT ||3000;
 const server = require('http').createServer(app);
 const cors = require('cors');
 
@@ -26,10 +26,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 // Passport.js config
-const passport = require('passport');
-require('./config/google-passport-strategy')(passport);
-require('./config/facebook-passport-strategy')(passport);
-app.use(passport.initialize({}));
+// const passport = require('passport');
+// require('./config/google-passport-strategy')(passport);
+// require('./config/facebook-passport-strategy')(passport);
+// app.use(passport.initialize({}));
 
 // Routes
 app.use('/auth', require('./routes/auth'));
