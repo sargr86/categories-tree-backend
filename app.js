@@ -38,11 +38,11 @@ app.use('/categories', require('./routes/categories'));
 const path = require('path');
 
 
-let dist = path.join(__dirname, '/dist/');
+let dist = path.join(__dirname, '/dist/categories-tree/');
 
 if (process.env.NODE_ENV === 'production') {
     console.log('dist works')
-    dist = path.join(__dirname, '/dist/')
+    dist = path.join(__dirname, '/dist/categories-tree/')
 }
 app.use(express.static(dist));
 
