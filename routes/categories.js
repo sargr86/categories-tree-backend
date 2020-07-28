@@ -8,7 +8,7 @@ router.get('/get-by-id', categoriesController.getById);
 router.post('/create', categoriesController.create);
 router.put('/update-details', categoriesController.updateDetails);
 router.put('/update-order', categoriesController.updateOrder);
-router.remove('/remove', categoriesController.remove);
+router.delete('/remove', categoriesController.remove);
 
 
 module.exports = router;
