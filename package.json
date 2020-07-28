@@ -1,5 +1,5 @@
 {
-  "name": "angular-7-starter-backend",
+  "name": "categories-tree-backend",
   "version": "1.0.0",
   "scripts": {
     "start": "node app.js"
