@@ -1,30 +1,36 @@
 const db = require('../models');
 const Categories = db.categories;
 const sequelize = require('sequelize');
-const {Op} = require('sequelize')
+const {Op} = require('sequelize');
+const showIfErrors = require('../helpers/showIfErrors');
 
 exports.create = async (req, res) => {
-    let data = req.body;
-    let parent = await Categories.findOne({
-        where: {id: data.parent}, attributes: ['id'], include: [
-            {
-                model: Categories,
-                as: 'children'
-            }
-        ]
-    });
-    if (parent && parent.dataValues) {
 
-        data.parent = parent.dataValues.id;
-        data.order = parent.dataValues.children.length;
-        await Categories.create(data);
-        res.json('OK');
-    } else {
-        data.parent = null;
-        data.order = 0;
-        await Categories.create(data);
-        res.json('OK');
-        //     res.status(500).json({msg: 'Parent is not found'});
+    if (!showIfErrors(req, res)) {
+
+
+        let data = req.body;
+        let parent = await Categories.findOne({
+            where: {id: data.parent}, attributes: ['id'], include: [
+                {
+                    model: Categories,
+                    as: 'children'
+                }
+            ]
+        });
+        if (parent && parent.dataValues) {
+
+            data.parent = parent.dataValues.id;
+            data.order = parent.dataValues.children.length;
+            await Categories.create(data);
+            res.json('OK');
+        } else {
+            data.parent = null;
+            data.order = 0;
+            await Categories.create(data);
+            res.json('OK');
+            //     res.status(500).json({msg: 'Parent is not found'});
+        }
     }
 };
 
