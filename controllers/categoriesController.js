@@ -36,9 +36,10 @@ exports.create = async (req, res) => {
 
 exports.get = async (req, res) => {
 
+    let data = req.query;
     const result = await Categories.findAll({
         where: {
-            parent: null
+            parent: data.parent || null
         },
         order: [
             [sequelize.col(`children.order`), 'asc'],
@@ -64,6 +65,19 @@ exports.get = async (req, res) => {
 
 
     res.json(result);
+};
+
+
+exports.getParentElements = async(req,res) =>{
+    let data = req.query;
+    const cat = await Categories.findOne({
+        attributes: ['parent'],
+        where: {
+            id: data.id
+        }});
+    console.log(cat.dataValues.parent)
+    req.query.parent = cat.dataValues.parent;
+    this.get(req,res);
 };
 
 exports.getCategoriesList = async (req, res) => {
